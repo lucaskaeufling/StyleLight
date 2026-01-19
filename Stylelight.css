@@ -1,0 +1,293 @@
+/* Le conteneur principal : cache ce qui dépasse */
+.slider {
+  height: 100px;
+  margin-top: 10px;
+  margin: auto;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  border-radius: 10px;
+  background: var(--bg); /* Ou la couleur de votre site */
+}
+
+/* La piste qui contient tous les logos */
+.slide-track {
+  display: flex;
+  
+  background-color: var(--bg_slide);
+  width: calc(250px * 10); /* 250px x nombre total de slides (y compris les doublons) */
+  animation: scroll 40s linear infinite;
+}
+
+/* Style individuel de chaque logo */
+.slide {
+  height: 100px;
+  width: 250px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.slide img {
+  width: 50px; /* Ajustez la taille des logos ici */
+  height: auto;
+  /* Optionnel : mettre les logos en gris pour un look plus pro */
+  
+  opacity: 0.7;
+  transition: all 0.3s;
+}
+
+/* Petit effet au survol : le logo reprend ses couleurs */
+.slide img:hover {
+  filter: grayscale(0%);
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+/* L'animation qui fait bouger la piste vers la gauche */
+@keyframes scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(calc(-250px * 5)); } /* -250px x nombre de logos UNIQUES */
+}
+
+
+
+    :root {
+      --bg: #1a1f2b;
+      --bg-soft: #263054;
+      --text: #e7e7ea;
+      --muted: #a9a9b2;
+      --accent: #d4af37;
+      --accent-2: #b8860b;
+      --card: rgba(70, 30, 30, 0.06);
+      --border: rgba(255, 255, 255, 0.12);
+      --ring: rgba(122, 162, 255, 0.35);
+      --shadow: 0 10px 30px rgba(0,0,0,.35), inset 0 0 0 1px var(--border);
+      --bg_slide: #464b58;
+    }
+
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg: #1a1f2b;
+        --bg-soft: #263054;
+        --text: #e7e7ea;
+        --muted: #a9a9b2;
+        --accent: #d4af37;
+        --accent-2: #b8860b;
+        --card: rgba(70, 30, 30, 0.06);
+        --border: rgba(255, 255, 255, 0.12);
+        --ring: rgba(122, 162, 255, 0.35);
+        --shadow: 0 10px 30px rgba(0,0,0,.35), inset 0 0 0 1px var(--border);
+        --bg_slide: #464b58;
+      }
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0; font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      background: radial-gradient(1200px 800px at 80% -10%, rgba(122, 162, 255, 0.12), transparent 50%),
+                  radial-gradient(900px 600px at 20% 0%, rgba(153, 246, 228, 0.12), transparent 40%),
+                  var(--bg);
+      color: var(--text); line-height: 1.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    .container { width: min(1120px, 92vw); margin: 0 auto; }
+
+    /* Header */
+    header {
+      position: sticky; top: 0; z-index: 50; backdrop-filter: saturate(1.3) blur(10px);
+      background: linear-gradient(to bottom, rgba(0,0,0,.5), rgba(0,0,0,0));
+      border-bottom: 1px solid var(--border);
+    }
+    .nav {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 0;
+    }
+
+    
+    .brand { display: inline-flex; align-items: center; gap: 10px; font-weight: 600; letter-spacing: .2px; }
+    .logo {
+      width: 28px; height: 28px; display: inline-grid; place-items: center;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #000; border-radius: 8px; font-size: 18px; font-weight: 800;
+      box-shadow: var(--shadow);
+    }
+    nav ul { display: flex; gap: 22px; list-style: none; padding: 0; margin: 0; }
+    nav a { color: var(--muted); font-weight: 500; }
+    nav a:hover, nav a:focus { color: var(--text); }
+    .cta { display: inline-flex; align-items: center; gap: 10px; }
+    .btn {
+      padding: 10px 16px; border-radius: 14px; border: 1px solid var(--border); background: var(--bg-soft);
+      box-shadow: var(--shadow); color: var(--text); font-weight: 600; cursor: pointer; transition: .2s transform, .2s box-shadow, .2s background;
+    }
+    .btn:hover { transform: translateY(-1px); box-shadow: 0 14px 40px rgba(0,0,0,.35), inset 0 0 0 1px var(--border); }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #000; border: none;
+    }
+    .mobile-toggle { display:none; }
+
+    /* Hero */
+    .hero { padding: 72px 0 40px; position: relative; overflow: hidden; }
+    .hero-grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: 40px; align-items: center; }
+    .eyebrow { color: var(--muted); text-transform: uppercase; letter-spacing: .24em; font-weight: 700; font-size: 12px; }
+    h1 { font-size: clamp(36px, 6vw, 64px); line-height: 1.05; margin: 10px 0 18px; letter-spacing: -0.02em; }
+    .lead { font-size: clamp(16px, 2.2vw, 20px); color: var(--muted); margin-bottom: 24px; }
+    .hero-cta { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+    .price { color: var(--muted); font-weight: 600; }
+
+    /* Product visual (SVG lamp) */
+    .device {
+      position: relative; border-radius: 22px; padding: 28px; background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,0));
+      box-shadow: var(--shadow); aspect-ratio: 4/3; display: grid; place-items: center; isolation: isolate;
+    }
+    .glow { position: absolute; inset: 10% 8%; filter: blur(40px); opacity: .8; background: radial-gradient(circle at 50% 30%, rgba(153,246,228,.35), transparent 40%), radial-gradient(circle at 60% 50%, rgba(122,162,255,.35), transparent 45%); z-index: -1; }
+
+    /* Features */ 
+    .section { padding: 64px 0;}
+    .section h2 { font-size: clamp(28px, 4.2vw, 40px); margin: 0 0 18px; letter-spacing:-.02em; }
+    .kicker { color: var(--muted); margin-bottom: 28px; }
+    .grid { display: grid; gap: 18px; grid-template-columns: repeat(3, 1fr); }
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 18px; box-shadow: var(--shadow); }
+    .card h3 { margin: 10px 0 8px; font-size: 18px; }
+    .icon { width: 28px; height: 28px; }
+
+    /* Gallery */
+    .gallery { display: grid; gap: 16px; grid-template-columns: repeat(12, 1fr); }
+    .gallery img, .gallery .ph { border-radius: 16px; box-shadow: var(--shadow); width: 100%; height: 100%; object-fit: cover; }
+    .gallery .a { grid-column: span 7; aspect-ratio: 7/4; }
+    .gallery .b { grid-column: span 5; aspect-ratio: 5/4; }
+    .gallery .c { grid-column: span 4; aspect-ratio: 4/3; }
+    .gallery .d { grid-column: span 8; aspect-ratio: 8/3; }
+
+    /* Specs */
+    .specs { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .specs dl { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 14px; margin: 0; }
+    .specs dt { color: var(--muted); }
+    .specs dd { margin: 0; font-weight: 600; }
+
+    /* Newsletter */
+    .newsletter { display: grid; grid-template-columns: 1.2fr .8fr; gap: 18px; align-items: center; }
+    form.news { display: grid; grid-template-columns: 1fr auto; gap: 10px; }
+    .input {
+      appearance: none; border: 1px solid var(--border); background: var(--bg-soft); padding: 14px 16px; border-radius: 14px; color: var(--text);
+      outline: none; box-shadow: inset 0 0 0 1px transparent; transition: .2s box-shadow, .2s border-color;
+    }
+    .input:focus { border-color: var(--accent); box-shadow: 0 0 0 6px var(--ring); }
+    .hint { color: var(--muted); font-size: 13px; }
+    .success { display:none; padding: 12px 14px; border-radius: 12px; background: rgba(153,246,228,.15); border: 1px solid rgba(153,246,228,.35); }
+
+    /* Footer */
+    footer { padding: 48px 0; color: var(--muted); border-top: 1px solid var(--border); }
+    .foot { display: flex; justify-content: space-between; align-items: center; gap: 18px; flex-wrap: wrap; }
+
+    /* Utilities */
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
+    .hidden { display: none !important; }
+    .reveal { opacity: 0; transform: translateY(14px); transition: .6s ease; }
+    .reveal.is-visible { opacity: 1; transform: translateY(0); }
+
+    /* Responsive */
+    @media (max-width: 880px) {
+      nav ul { display: none; position: absolute; right: 16px; top: 64px; background: var(--bg-soft); border: 1px solid var(--border); border-radius: 16px; padding: 10px; box-shadow: var(--shadow); }
+      nav ul.open { display: grid; gap: 10px; }
+      .mobile-toggle { display: inline-flex; }
+      .hero-grid { grid-template-columns: 1fr; }
+      .grid { grid-template-columns: 1fr; }
+      .specs { grid-template-columns: 1fr; }
+      .newsletter { grid-template-columns: 1fr; }
+    }
+ 
+    .confiance{
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        margin-top: 24px;
+        margin-bottom: 16px;
+    }
+
+    .hero-section {
+  position: relative; /* Important pour positionner la vidéo dedans */
+  width: 100%;
+  height: 100vh; /* 100% de la hauteur de la vue (Viewport Height) */
+  display: flex;
+  align-items: center; /* Centre le texte verticalement */
+  justify-content: center; /* Centre le texte horizontalement */
+  overflow: hidden; /* Cache ce qui dépasse */
+  color: white; /* Texte en blanc */
+}
+
+/* Style de la vidéo pour qu'elle agisse comme un fond d'écran */
+.back-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* MAGIQUE : La vidéo remplit la zone sans être écrasée */
+  z-index: -2; /* Tout au fond */
+}
+
+.menu li a{
+    color: white;
+}
+
+.brand span{
+    color : white;
+}
+/* --- LE CONTENEUR --- */
+.gallery-item {
+    position: relative; /* Reste le point de repère */
+    width: 100%;
+    height: 100%; /* IMPORTANT : Il doit remplir sa case dans la grille */
+    
+    /* Optionnel : si tu veux forcer un ratio précis (ex: carré)
+       tu peux ajouter ça :
+       aspect-ratio: 1 / 1; 
+    */
+}
+
+/* --- L'IMAGE --- */
+.gallery-item img {
+    /* Le changement clé est ici : */
+    width: 100%;
+    height: 100%; /* On force l'image à prendre toute la place */
+    
+    /* LA MAGIE : object-fit: cover
+       Ça dit à l'image : "Remplis le cadre, quitte à couper un peu les bords,
+       mais NE change JAMAIS ton ratio (ne t'écrase pas)." */
+    object-fit: cover; 
+    
+    display: block;
+}
+
+/* --- LE TEXTE (ça ne change pas) --- */
+.gallery-label {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    margin: 0;
+    padding: 20px;
+    color: white;
+    font-weight: 600;
+    font-size: 1.1rem;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.8); /* Ombre un peu plus forte pour la lisibilité */
+    
+    /* Bonus : un petit fond dégradé pour être sûr que c'est lisible */
+    background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 100%);
+    width: 100%; /* Le dégradé prend toute la largeur */
+}
+
+.features-content {
+    
+    padding: 40px;
+    margin-left: 0;
+    border-radius: 10px;
+    width: fit-content;
+}
